@@ -1,10 +1,14 @@
+import React from "react"
+
 function Dashboard() {
-    return (
-        <div>
-            <h1>Dashboard</h1>
-            <p>Usuario autenticado</p>
-        </div>
-    )
+    const token = localStorage.getItem('token')
+  return (
+    <div style={{ padding: "40px" }}>
+      <h1>Dashboard</h1>
+      <p>Você está autenticado 😎</p>
+      <p>{token}</p>
+    </div>
+  )
 }
 
 export default Dashboard

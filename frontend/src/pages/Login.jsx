@@ -1,24 +1,28 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { api } from "../services/api"
+import { AuthContext } from "../context/AuthContext"
 
 function Login() {
+  const { login } = useContext(AuthContext)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
   async function handleSubmit(e) {
     e.preventDefault()
 
-    console.log("Usuário:", username)
-    console.log("Senha:", password)
-
     try {
       // exemplo fictício
-      const response = await api.post("/accounts/login", {
+      const response = await api.post("/accounts/login/", {
         username,
         password
       })
 
-      console.log("Resposta:", response.data)
+      const { access_token } = response.data
+
+      login(access_token)
+
+      navigate("/dashboard")
 
     } catch (error) {
       console.error("Erro ao logar:", error)
@@ -27,7 +31,7 @@ function Login() {
 
   return (
     <div style={{ padding: "40px" }}>
-      <h1>Tela de Login</h1>
+      <h1>Login</h1>
 
       <form onSubmit={handleSubmit}>
         <div>
