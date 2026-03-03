@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { api } from "../services/api"
 import { AuthContext } from "../context/AuthContext"
@@ -7,6 +7,7 @@ function Login() {
   const { login } = useContext(AuthContext)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -18,11 +19,13 @@ function Login() {
         password
       })
 
-      const { access_token } = response.data
+      const { token } = response.data
 
-      login(access_token)
+      login(token)
 
       navigate("/dashboard")
+
+      console.log("Logado com sucesso");
 
     } catch (error) {
       console.error("Erro ao logar:", error)

@@ -19,9 +19,9 @@ export function AuthProvider({children}) {
         }
     }, [])
 
-    function login(access_token) {
-        localStorage.setItem("token", access_token)
-        setToken(access_token)
+    function login(token) {
+        localStorage.setItem("token", token)
+        setToken(token)
         setIsAuthenticated(true)
         navigate("dashboard/")
     }
