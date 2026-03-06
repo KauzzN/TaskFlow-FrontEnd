@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import "./Login.css"
 import { api } from "../services/api"
 import { AuthContext } from "../context/AuthContext"
 
@@ -7,7 +8,7 @@ function Login() {
   const { login } = useContext(AuthContext)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const navigate = useNavigate
+  const navigate = useNavigate()
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -33,11 +34,11 @@ function Login() {
   }
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
       <h1>Login</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div>
+        <div className="input-group">
           <label>Usuario:</label>
           <input
             type="text"
@@ -47,7 +48,7 @@ function Login() {
           />
         </div>
 
-        <div style={{ marginTop: "10px" }}>
+        <div className="input-group">
           <label>Senha:</label>
           <input
             type="password"
@@ -57,7 +58,7 @@ function Login() {
           />
         </div>
 
-        <button style={{ marginTop: "15px" }} type="submit">
+        <button className="login-btn" type="submit">
           Entrar
         </button>
       </form>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { api } from "../services/api"
+import "./Dashboard.css"
 
 function Dashboard() {
   const [title, setTitle] = useState("")
@@ -122,99 +123,117 @@ const [editDescription, setEditDescription] = useState("")
   }, []) // IMPORTANTE: executa só uma vez
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h1>Tasks:</h1>
+    <div className="dashboard-container">
+      
+      <h1 className="dashboard-title">TaskFlow</h1>
+      
+      <section className="create-task">
+        <form onSubmit={handleCreateTask}>
+           
+          <h2>Criar tarefa</h2>
 
-      {/* Criar Task */}
-      <form onSubmit={handleCreateTask}>
-        <div style={{ marginTop: "10px" }}>
-          <input
-            type="text"
-            placeholder="Título"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-
-        <div style={{ marginTop: "10px" }}>
-          <input
-            type="text"
-            placeholder="Descrição"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-
-        {errorMessage && (
-          <p style={{ color: "red", marginTop: "10px" }}>
-            {errorMessage}
-          </p>
-        )}
-
-        <button
-          type="submit"
-          style={{ marginTop: "15px" }}
-          disabled={loading}
-        >
-          Criar
-        </button>
-      </form>
-
-      {/* Buscar Task */}
-      <form onSubmit={handleFindTask} style={{ marginTop: "30px" }}>
-        <input
+          <input 
+          className="dashboard-input"
           type="text"
-          placeholder="Buscar por título"
+          placeholder="Titulo"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          />
+
+          <input 
+          className="dashboard-input"
+          type="text"
+          placeholder="Descrição"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          />
+
+          <button 
+          className="dashboard-btn"
+          type="submit" disabled={loading}>
+            Criar
+          </button>
+
+        </form>
+      </section>
+
+      <section className="search-task">
+        <form onSubmit={handleFindTask}>
+          <input 
+          className="dashboard-input"
+          type="text"
+          placeholder="Buscar tarefa"
           value={title_Ask}
           onChange={(e) => setTitle_Ask(e.target.value)}
-        />
-        <button type="submit" style={{ marginLeft: "10px" }}>
-          Buscar
-        </button>
-      </form>
+          />
+          
+          <button 
+          className="dashboard-btn"
+          type="submit">
+            Buscar
+          </button>
 
-      {/* Resultado da busca */}
-      {taskList.map((task) => (
-  <div key={task.id} style={{ marginTop: "15px" }}>
+        </form>
+      </section>
 
-    {editingTaskId === task.id ? (
-      <>
-        <input
-          type="text"
-          value={editTitle}
-          onChange={(e) => setEditTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          value={editDescription}
-          onChange={(e) => setEditDescription(e.target.value)}
-        />
+      <section className="task-list">
+        {taskList.map((task) => (
+          <div className="task-card" key={task.id}>
 
-        <button onClick={() => handleUpdateTask(task.id)}>
-          Salvar
-        </button>
+            {editingTaskId === task.id? (
+              <>
 
-        <button onClick={() => setEditingTaskId(null)}>
-          Cancelar
-        </button>
-      </>
-    ) : (
-      <>
-        <h3>{task.title}</h3>
-        <p>{task.description}</p>
+              <input 
+              className="dashboard-input"
+              type="text"
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)} 
+              />
 
-        <button onClick={() => startEditing(task)}>
-          Editar
-        </button>
+              <input 
+              className="dashboard-input"
+              type="text"
+              value={editDescription}
+              onChange={(e) => 
+                setEditDescription(e.target.value)}
+              />
 
-        <button onClick={() => handleDeleteTask(task.id)}>
-          Deletar
-        </button>
-      </>
-    )}
+              <button 
+              className="dashboard-btn"
+              onClick={() => handleUpdateTask(task.id)}>
+                Salvar
+              </button>
 
-  </div>
-))}
+              <button 
+              className="dashboard-btn"
+              onClick={() => setEditingTaskId(null)}>
+                Cancelar
+              </button>
+
+              </>
+            ) : (
+              <>
+              <h3>{task.title}</h3>
+              <p>{task.description}</p>
+
+              <button 
+              className="dashboard-btn"
+              onClick={() => startEditing(task)}>
+                Editar
+              </button>
+
+              <button 
+              className="dashboard-btn"
+              onClick={() => 
+              handleDeleteTask(task.id)}>
+                Deletar
+              </button>
+              </>
+            )}
+          </div>
+        ))}
+
+      </section>
     </div>
   )
 }
