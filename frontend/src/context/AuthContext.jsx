@@ -4,32 +4,30 @@ import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext()
 
-
 export function AuthProvider({children}) {
-    const [token, setToken] = useState(null)
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
     const navigate = useNavigate()
 
-    useEffect(() => {
-        const storedToken = localStorage.getItem("token")
+    const [token, setToken] = useState(() => {
+        return localStorage.getItem("token")
+    })
 
-        if (storedToken) {
-            setToken(storedToken)
-            setIsAuthenticated(true)
-        }
-    }, [])
+    const [isAuthenticated, setIsAuthenticated] = useState(() => {
+        return !!localStorage.getItem("token")
+    })
 
-    function login(token) {
-        localStorage.setItem("token", token)
-        setToken(token)
+    function login(receivedToken) {
+        localStorage.setItem("token", receivedToken)
+        setToken(receivedToken)
         setIsAuthenticated(true)
-        navigate("dashboard/")
+
+        navigate("/dashboard")
     }
 
     function logout() {
         localStorage.removeItem("token")
         setToken(null)
         setIsAuthenticated(false)
+
         navigate("/")
     }
     

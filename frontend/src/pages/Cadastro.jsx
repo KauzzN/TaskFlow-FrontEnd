@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react"
 import { Link } from "react-router-dom"
 import { api } from "../services/api"
 import { AuthContext } from "../context/AuthContext"
+import "./Cadastro.css"
 
 function Cadastro() {
   const { login } = useContext(AuthContext)
@@ -59,11 +60,12 @@ function Cadastro() {
   }
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h1>Cadastro</h1>
+    <div className="cadastro-container">
 
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form className="cadastro-form" onSubmit={handleSubmit}>
+      <h1 className="cadastro-title">Cadastro</h1>
+
+        <div className="input-cadastro-group">
           <input
             type="text"
             placeholder="Usuário"
@@ -72,7 +74,7 @@ function Cadastro() {
           />
         </div>
 
-        <div style={{ marginTop: "10px" }}>
+        <div className="input-cadastro-group">
           <input
             type="email"
             placeholder="Email"
@@ -81,7 +83,7 @@ function Cadastro() {
           />
         </div>
 
-        <div style={{ marginTop: "10px" }}>
+        <div className="input-cadastro-group">
           <input
             type="password"
             placeholder="Senha"
@@ -90,7 +92,7 @@ function Cadastro() {
           />
         </div>
 
-        <div style={{ marginTop: "10px" }}>
+        <div className="input-cadastro-group">
           <input
             type="password"
             placeholder="Confirmar senha"
@@ -100,22 +102,26 @@ function Cadastro() {
         </div>
 
         {errorMessage && (
-          <p style={{ color: "red", marginTop: "10px" }}>
+          <p>
             {errorMessage}
           </p>
         )}
 
         <button
+          className="cadastro-btn"
           type="submit"
-          style={{ marginTop: "15px" }}
           disabled={loading}
         >
           {loading ? "Criando conta..." : "Cadastrar"}
         </button>
       </form>
 
-      <p style={{ marginTop: "20px" }}>
-        Já tem conta? <Link to="/">Fazer login</Link>
+      <p className="login-btn-redirect">
+        Já tem conta? <Link to="/">
+        <span className="login-box">
+          Fazer login
+        </span>
+        </Link>
       </p>
     </div>
   )

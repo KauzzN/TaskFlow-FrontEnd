@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import "./Login.css"
-import { api } from "../services/api"
+import React, { useContext, useState } from "react"
+import { useNavigate, Link } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
+import { api } from "../services/api"
 
 function Login() {
   const { login } = useContext(AuthContext)
@@ -20,11 +20,11 @@ function Login() {
         password
       })
 
-      const { token } = response.data
+      console.log(response.data)
 
-      login(token)
+      const { access_token } = response.data
 
-      navigate("/dashboard")
+      login(access_token)
 
       console.log("Logado com sucesso");
 
@@ -39,29 +39,35 @@ function Login() {
       <h1>Login</h1>
 
         <div className="input-group">
-          <label>Usuario:</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Digite seu Usuario"
+            placeholder="Usuario"
           />
         </div>
 
         <div className="input-group">
-          <label>Senha:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Digite sua senha"
+            placeholder="Senha"
           />
         </div>
 
         <button className="login-btn" type="submit">
           Entrar
         </button>
+
       </form>
+        <p className="register-redirect">
+          Não tem conta?
+        </p>
+
+        <Link to="/cadastro" className="register-box">
+          Criar conta
+        </Link>
     </div>
   )
 }

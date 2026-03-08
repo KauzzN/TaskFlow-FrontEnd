@@ -14,57 +14,42 @@ function Dashboard() {
 const [editTitle, setEditTitle] = useState("")
 const [editDescription, setEditDescription] = useState("")
 
+function startEditing(task) {
+setEditingTaskId(task.id)
+setEditTitle(task.title)
+setEditDescription(task.description)
+}
+
   async function fetchTasks() {
     try {
-      setLoading(true)
-      const response = await api.get("/tasks/read/")
+
+      const response = await api.get("tasks/read/")
+      console.log("Tasks recebidas:", response.data)
+      
       setTaskList(response.data.tasks)
+
     } catch (error) {
       setErrorMessage("Erro ao buscar tarefas.")
-    } finally {
-      setLoading(false)
     }
   }
-
-  async function handleDeleteTask(id) {
-  try {
-    await api.delete(`/tasks/${id}/delete/`)
-
-    setTaskList((prevTasks) =>
-      prevTasks.filter((task) => task.id !== id)
-    )
-  } catch (error) {
-    setErrorMessage("Erro ao deletar tarefa.")
-  }
-}
-
-  function startEditing(task) {
-  setEditingTaskId(task.id)
-  setEditTitle(task.title)
-  setEditDescription(task.description)
-}
 
   async function handleCreateTask(e) {
     e.preventDefault()
     setErrorMessage("")
-
+  
     if (!title.trim()) {
       setErrorMessage("O título é obrigatório.")
       return
     }
-
+  
     try {
-      setLoading(true)
-
-      const response = await api.post("/tasks/create/", {
+      await api.post("/tasks/create/", {
         title,
         description
       })
-
-      const newTask = response.data
-
-      setTaskList((prevTasks) => [...prevTasks, newTask])
-
+  
+      await fetchTasks() 
+  
       setTitle("")
       setDescription("")
     } catch (error) {
@@ -73,50 +58,56 @@ const [editDescription, setEditDescription] = useState("")
       setLoading(false)
     }
   }
-
+  
   async function handleUpdateTask(id) {
-  try {
-    const response = await api.patch(`/tasks/${id}/update/`, {
-      title: editTitle,
-      description: editDescription
-    })
+    try {
+      await api.patch(`/tasks/${id}/update/`, {
+        title: editTitle,
+        description: editDescription
+      })
+  
+      await fetchTasks()
+  
+      setEditingTaskId(null)
 
-    const updatedTask = response.data
-
-    setTaskList((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? updatedTask : task
-      )
-    )
-
-    setEditingTaskId(null)
-  } catch (error) {
-    setErrorMessage("Erro ao atualizar tarefa.")
+    } catch (error) {
+      setErrorMessage("Erro ao atualizar tarefa.")
+    }
   }
-}
-
+  
   function handleFindTask(e) {
     e.preventDefault()
     setErrorMessage("")
-
+  
     if (!title_Ask.trim()) {
       setErrorMessage("Digite um título para buscar.")
       return
     }
-
+  
     const foundTask = taskList.find(
       (t) =>
         t.title.toLowerCase() === title_Ask.trim().toLowerCase()
     )
-
+  
     if (!foundTask) {
       setErrorMessage("Tarefa não encontrada.")
       setTask(null)
       return
     }
-
+  
     setTask(foundTask)
   }
+  
+  async function handleDeleteTask(id) {
+  try {
+    await api.delete(`/tasks/${id}/delete/`)
+    
+    await fetchTasks()
+
+  } catch (error) {
+    setErrorMessage("Erro ao deletar tarefa.")
+  }
+}
 
   useEffect(() => {
     fetchTasks()
