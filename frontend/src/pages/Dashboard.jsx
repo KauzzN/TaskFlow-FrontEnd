@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
+import { AuthContext } from "../context/AuthContext"
 import { api } from "../services/api"
 import "./Dashboard.css"
 
@@ -11,8 +12,10 @@ function Dashboard() {
   const [task, setTask] = useState(null)
   const [title_Ask, setTitle_Ask] = useState("")
   const [editingTaskId, setEditingTaskId] = useState(null)
-const [editTitle, setEditTitle] = useState("")
-const [editDescription, setEditDescription] = useState("")
+  const [editTitle, setEditTitle] = useState("")
+  const [editDescription, setEditDescription] = useState("")
+  const { logout } = useContext(AuthContext)
+
 
 function startEditing(task) {
 setEditingTaskId(task.id)
@@ -225,6 +228,13 @@ setEditDescription(task.description)
         ))}
 
       </section>
+
+      <button 
+      className="logout-btn"
+      onClick={logout}
+      >
+       Logout 
+      </button>
     </div>
   )
 }

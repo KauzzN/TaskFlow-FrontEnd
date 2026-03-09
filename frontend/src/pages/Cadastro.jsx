@@ -43,10 +43,10 @@ function Cadastro() {
         password
       })
 
-      const { access_token } = response.data
+      const { token } = response.data
 
       // delega autenticação ao contexto
-      login(access_token)
+      login(token)
 
     } catch (error) {
       if (error.response?.status === 400) {

@@ -49,6 +49,7 @@ body {
 
 .dashboard-btn:hover {
     background: #1d4ed8;
+    transform: scale(1.03);
 }
 
 .task-card button {
@@ -79,4 +80,20 @@ body {
 
 .task-card input {
     margin-top: 8px;
+}
+
+.logout-btn {
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s all;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+}
+
+.logout-btn:hover {
+    background: #1d4ed8;
+    transform: scale(1.03);
 }
