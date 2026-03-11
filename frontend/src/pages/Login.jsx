@@ -22,9 +22,15 @@ function Login() {
 
       console.log(response.data)
 
-      const { access_token } = response.data
+      const tokens = response.data.data
 
-      login(access_token)
+      if (!tokens) {
+        throw new Error("API não retornou tokens")
+      }
+
+      console.log(tokens.access_token, tokens.refresh_token)
+
+      login(tokens.access_token, tokens.refresh_token)
 
       console.log("Logado com sucesso");
 

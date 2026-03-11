@@ -43,12 +43,15 @@ function Cadastro() {
         password
       })
 
-      console.log(data)
+      console.log("RESPOSTA:", response.data)
 
-      const { access_token } = response.data
+      const tokens = response.data?.data?.tokens
 
-      // delega autenticação ao contexto
-      login(access_token)
+      if (!tokens) {
+        throw new Error("API não retornou tokens")
+      }
+
+      login(tokens.access_token, tokens.refresh_token)
 
     } catch (error) {
       if (error.response?.status === 400) {
