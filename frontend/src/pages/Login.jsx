@@ -22,9 +22,9 @@ function Login() {
 
       console.log(response.data)
 
-      const { token } = response.data
+      const { access_token } = response.data
 
-      login(token)
+      login(access_token)
 
       console.log("Logado com sucesso");
 

@@ -26,7 +26,7 @@ setEditDescription(task.description)
   async function fetchTasks() {
     try {
 
-      const response = await api.get("tasks/read/")
+      const response = await api.get("tasks/")
       console.log("Tasks recebidas:", response.data)
       
       setTaskList(response.data.tasks)
@@ -46,7 +46,7 @@ setEditDescription(task.description)
     }
   
     try {
-      await api.post("/tasks/create/", {
+      await api.post("/tasks/", {
         title,
         description
       })
@@ -64,7 +64,7 @@ setEditDescription(task.description)
   
   async function handleUpdateTask(id) {
     try {
-      await api.patch(`/tasks/${id}/update/`, {
+      await api.patch(`/tasks/${id}/`, {
         title: editTitle,
         description: editDescription
       })
@@ -103,7 +103,7 @@ setEditDescription(task.description)
   
   async function handleDeleteTask(id) {
   try {
-    await api.delete(`/tasks/${id}/delete/`)
+    await api.delete(`/tasks/${id}/`)
     
     await fetchTasks()
 

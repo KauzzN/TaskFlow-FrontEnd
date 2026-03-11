@@ -37,16 +37,18 @@ function Cadastro() {
     try {
       setLoading(true)
 
-      const response = await api.post("/accounts/signin/", {
+      const response = await api.post("/accounts/register/", {
         username,
         email,
         password
       })
 
-      const { token } = response.data
+      console.log(data)
+
+      const { access_token } = response.data
 
       // delega autenticação ao contexto
-      login(token)
+      login(access_token)
 
     } catch (error) {
       if (error.response?.status === 400) {
