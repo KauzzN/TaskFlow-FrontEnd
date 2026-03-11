@@ -1,0 +1,75 @@
+body {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.cadastro-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #0f172a;
+}
+
+.cadastro-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cadastro-form {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 350px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.input-cadastro-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.input-cadastro-group input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.cadastro-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s all;
+}
+
+.cadastro-btn:hover {
+    background-color: #1e40af;
+    transform: scale(1.02);
+}
+
+.login-btn-redirect {
+    color: white;
+    text-decoration: none;
+}
+
+.login-box {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 6px 12px;
+    background-color: #2563eb;
+    border-radius: 6px;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s all;
+}
+
+.login-box:hover {
+    background-color: #1e40af;
+    transform: scale(1.03);
+}
