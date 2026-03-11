@@ -26,11 +26,7 @@ setEditDescription(task.description)
   async function fetchTasks() {
     try {
 
-<<<<<<< HEAD
       const response = await api.get("tasks/")
-=======
-      const response = await api.get("/tasks/")
->>>>>>> 90582d7 (added auto refresh tokens)
       console.log("Tasks recebidas:", response.data)
       
       setTaskList(response.data.tasks)
