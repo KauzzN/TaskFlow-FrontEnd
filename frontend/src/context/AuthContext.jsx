@@ -4,42 +4,45 @@ import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext()
 
-export function AuthProvider({children}) {
-    const navigate = useNavigate()
+export function AuthProvider({ children }) {
+  const navigate = useNavigate()
 
-    const [token, setToken] = useState(() => {
-        return localStorage.getItem("token")
-    })
+  const [token, setToken] = useState(() => {
+    return localStorage.getItem("access_token")
+  })
 
-    const [isAuthenticated, setIsAuthenticated] = useState(() => {
-        return !!localStorage.getItem("token")
-    })
+  const isAuthenticated = !!token
 
-    function login(receivedToken) {
-        localStorage.setItem("token", receivedToken)
-        setToken(receivedToken)
-        setIsAuthenticated(true)
+  function login(access_token, refresh_token) {
 
-        navigate("/dashboard")
-    }
+    localStorage.setItem("access_token", access_token)
+    localStorage.setItem("refresh_token", refresh_token)
 
-    function logout() {
-        localStorage.removeItem("token")
-        setToken(null)
-        setIsAuthenticated(false)
-
-        navigate("/")
-    }
+    setToken(access_token)
     
-    return (
-        <AuthContext.Provider
-            value={{
-                token,
-                isAuthenticated,
-                login,
-                logout
-            }}>
-            {children}
-        </AuthContext.Provider>
-    )
+    navigate("/dashboard")
+  }
+
+  function logout() {
+    
+    localStorage.removeItem("access_token")
+    localStorage.removeItem("refresh_token")
+
+    setToken(null)
+    
+    navigate("/")
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{
+        token,
+        isAuthenticated,
+        login,
+        logout
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
 }

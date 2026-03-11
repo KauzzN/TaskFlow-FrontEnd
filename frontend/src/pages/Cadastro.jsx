@@ -43,11 +43,16 @@ function Cadastro() {
         password
       })
 
+<<<<<<< HEAD
       console.log(data)
 
       const { access_token } = response.data
 
       // delega autenticação ao contexto
+=======
+      const { access_token } = response.data.data
+
+>>>>>>> 90582d7 (added auto refresh tokens)
       login(access_token)
 
     } catch (error) {

@@ -8,7 +8,7 @@ function Login() {
   const { login } = useContext(AuthContext)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const navigate = useNavigate()
+
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -22,9 +22,16 @@ function Login() {
 
       console.log(response.data)
 
+<<<<<<< HEAD
       const { access_token } = response.data
 
       login(access_token)
+=======
+      const { access_token } = response.data.data
+      const { refresh_token } = response.data.data
+
+      login(access_token, refresh_token)
+>>>>>>> 90582d7 (added auto refresh tokens)
 
       console.log("Logado com sucesso");
 
